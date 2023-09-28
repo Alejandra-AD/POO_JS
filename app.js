@@ -74,4 +74,31 @@ gigi.setNotas = 5;
 gigi.setNotas = 6;
 gigi.setNotas = 7;
 
-console.log(gigi.getNotas);
+console.log(gigi.notas);
+
+class EstudianteNotasPrivadas extends Persona{
+
+    #notas = [];
+
+
+    set setNotasPrivada(nota){
+        this.#notas.push(nota);
+    }
+
+    get getNotasPrivada(){
+        return this.#notas;
+    }
+
+
+}
+
+
+const elsa = new EstudianteNotasPrivadas("Elsa");
+
+elsa.setNotasPrivada = 7;
+elsa.setNotasPrivada = 6;
+elsa.setNotasPrivada = 7;
+
+
+
+console.log(elsa.nombre, elsa.getNotasPrivada);// Private class fields

@@ -87,3 +87,5 @@ class Profesor extends Persona{
 
 
 }
+
+//solo llegue mostrar el nombre de estudiante

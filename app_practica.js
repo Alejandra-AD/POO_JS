@@ -5,6 +5,7 @@ const cardProfesores = document.getElementById("cards-profesores");
 const templateEstudiante = document.getElementById("templateEstudiante").content;
 const templateProfesores = document.getElementById("templateProfesor").content;
 const estudiantes = [];
+const profesores = [];
 
 
 formulario.addEventListener("submit",(e) => {
@@ -26,10 +27,11 @@ formulario.addEventListener("submit",(e) => {
         Persona.pintarPersona(estudiantes,opcion);
     }
 
-    // if (opcion === "profesor"){
-
-    //     console.log()
-    // }
+    if (opcion === "profesor"){
+        const profesor = new Profesor(nombre,correo);
+        profesores.push(profesor);
+        Persona.pintarPersona(profesores,opcion);
+    }
 
     
 
@@ -58,6 +60,20 @@ class Persona{
             
         }
 
+        if (tipo === "profesor"){
+            cardProfesores.textContent = null;
+
+            const fragment = document.createDocumentFragment();
+            personas.forEach(item =>{
+
+                fragment.appendChild(item.agregarNuevoProfesor());
+
+            });
+
+            cardProfesores.appendChild(fragment);
+
+        }
+
 
     }
 }
@@ -84,6 +100,19 @@ class Estudiante extends Persona{
 }
 
 class Profesor extends Persona{
+
+
+
+    agregarNuevoProfesor(){
+
+        const clone = templateProfesores.cloneNode(true);
+        clone.querySelector("h5").textContent = this.nombre;
+        clone.querySelector(".correo-profesor").textContent = this.correo;
+        return clone;
+
+    }
+
+
 
 
 }

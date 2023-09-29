@@ -1,1 +1,89 @@
 console.log("funcionando");
+const formulario = document.getElementById("formulario");
+const cardEstudiante = document.getElementById("cards-estudiantes");
+const cardProfesores = document.getElementById("cards-profesores");
+const templateEstudiante = document.getElementById("templateEstudiante").content;
+const templateProfesores = document.getElementById("templateProfesor").content;
+const estudiantes = [];
+
+
+formulario.addEventListener("submit",(e) => {
+    e.preventDefault();
+    const datos = new FormData(formulario); //a form data se le pasa el formulario
+    // console.log(datos);
+
+    // console.log([...datos.values()]); //destructuring
+
+    const [nombre,correo,opcion] = [...datos.values()];
+    console.log(nombre,correo,opcion);
+
+    
+    // console.log(estudiante);
+    if(opcion === "estudiante"){
+        const estudiante = new Estudiante(nombre,correo);
+        estudiantes.push(estudiante);
+        // console.log(estudiantes);
+        Persona.pintarPersona(estudiantes,opcion);
+    }
+
+    // if (opcion === "profesor"){
+
+    //     console.log()
+    // }
+
+    
+
+});
+
+class Persona{
+    constructor(nombre, correo){
+        this.nombre = nombre;
+        this.correo = correo;
+    }
+    static pintarPersona(personas,tipo){
+
+        if (tipo === "estudiante"){
+
+            cardEstudiante.textContent = null;
+            const fragment = document.createDocumentFragment();
+
+            personas.forEach(item =>{
+
+                fragment.appendChild(item.agregarNuevoEstudiante());
+
+            });
+
+            cardEstudiante.appendChild(fragment); // le pasamos todos los estudiantes agregados
+
+            
+        }
+
+
+    }
+}
+
+class Estudiante extends Persona{
+    #estado = true;
+
+    set setEstado(estado){
+        this.#estado = estado;
+    }
+
+    get getEstado(){
+        return this.#estado;
+    }
+
+    agregarNuevoEstudiante(){ 
+
+        const clone = templateEstudiante.cloneNode(true);
+        clone.querySelector(".d-flex").textContent = this.nombre;
+        return clone;
+
+    }
+
+}
+
+class Profesor extends Persona{
+
+
+}

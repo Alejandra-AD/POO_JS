@@ -8,6 +8,42 @@ const estudiantes = [];
 const profesores = [];
 
 
+document.addEventListener("click", event => {
+    console.log(event.target.dataset.correo);
+    if (event.target.dataset.correo){
+        if (event.target.matches(".btn-success")){
+
+            estudiantes.map(item =>{
+
+                if (item.correo === event.target.dataset.correo){
+                    item.setEstado = true;
+                }
+
+                return item;
+            });
+
+        }
+
+        if (event.target.matches(".btn-danger")){
+            estudiantes.map(item =>{
+                if (item.correo === event.target.dataset.correo){
+                    item.setEstado = false;
+                }
+                return item;
+            });
+
+        }
+
+
+        Persona.pintarPersona(estudiantes,"estudiante");
+    }
+
+
+
+
+});
+
+
 
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -95,16 +131,25 @@ class Estudiante extends Persona {
         const clone = templateEstudiante.cloneNode(true);
         clone.querySelector(".d-flex").textContent = this.nombre;
         clone.querySelector(".correo-estudiante").textContent = this.correo;
+     
 
         if(this.#estado){
 
-            clone.querySelector(".bagde").className = "badge bg-success";
+            // clone.querySelector(".bagde").className = "badge bg-success";
+            clone.querySelector(".btn-success").disabled = true;
+            clone.querySelector(".btn-danger").disabled = false;
+            console.log(this.#estado);
 
         } else{
             clone.querySelector (".badge").className = "badge bg-danger";
+            // clone.querySelector (".btn .btn-danger").textContent = "Reprobado";
+            clone.querySelector (".btn-danger").disabled = true;
+            clone.querySelector (".btn-success").disabled = false;
 
         }
-
+        clone.querySelector(".badge").textContent = this.#estado ? "Aprobado" : "Reprobado";
+        clone.querySelector(".btn-success").dataset.correo = this.correo;
+        clone.querySelector(".btn-danger").dataset.correo = this.correo;
 
         return clone;
 

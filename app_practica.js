@@ -4,6 +4,7 @@ const cardEstudiante = document.getElementById("cards-estudiantes");
 const cardProfesores = document.getElementById("cards-profesores");
 const templateEstudiante = document.getElementById("templateEstudiante").content;
 const templateProfesores = document.getElementById("templateProfesor").content;
+const alert = document.querySelector("alert");
 const estudiantes = [];
 const profesores = [];
 
@@ -52,8 +53,20 @@ formulario.addEventListener("submit", (e) => {
 
     // console.log([...datos.values()]); //destructuring
 
+    // alert.classList.add("d-none");
+
+
     const [nombre, correo, opcion] = [...datos.values()];
     console.log(nombre, correo, opcion);
+
+    //alert 
+
+    // if(!nombre.trim() || !correo.trim() || !opcion.trim()){
+    //     console.log("faltan datos");
+    //     alert.classList.remove("d-none");
+        
+    //     return;
+    // }
 
 
     // console.log(estudiante);
@@ -176,4 +189,3 @@ class Profesor extends Persona {
 
 }
 
-//solo llegue mostrar el nombre de estudiante

@@ -10,13 +10,13 @@ const profesores = [];
 
 
 document.addEventListener("click", event => {
-    console.log(event.target.dataset.correo);
-    if (event.target.dataset.correo){
+    console.log(event.target.dataset.uid);
+    if (event.target.dataset.uid){
         if (event.target.matches(".btn-success")){
 
             estudiantes.map(item =>{
 
-                if (item.correo === event.target.dataset.correo){
+                if (item.uid === event.target.dataset.uid){
                     item.setEstado = true;
                 }
 
@@ -27,7 +27,7 @@ document.addEventListener("click", event => {
 
         if (event.target.matches(".btn-danger")){
             estudiantes.map(item =>{
-                if (item.correo === event.target.dataset.correo){
+                if (item.uid === event.target.dataset.uid){
                     item.setEstado = false;
                 }
                 return item;
@@ -56,7 +56,7 @@ formulario.addEventListener("submit", (e) => {
     // alert.classList.add("d-none");
 
 
-    const [nombre, correo, opcion] = [...datos.values()];
+    const [nombre, correo, opcion,uid] = [...datos.values()];
     console.log(nombre, correo, opcion);
 
     //alert 
@@ -91,6 +91,7 @@ class Persona {
     constructor(nombre, correo) {
         this.nombre = nombre;
         this.correo = correo;
+        this.uid = `${Date.now()}`;
     }
     static pintarPersona(personas, tipo) {
 
@@ -161,8 +162,8 @@ class Estudiante extends Persona {
 
         }
         clone.querySelector(".badge").textContent = this.#estado ? "Aprobado" : "Reprobado";
-        clone.querySelector(".btn-success").dataset.correo = this.correo;
-        clone.querySelector(".btn-danger").dataset.correo = this.correo;
+        clone.querySelector(".btn-success").dataset.uid = this.uid;
+        clone.querySelector(".btn-danger").dataset.uid = this.uid;
 
         return clone;
 
